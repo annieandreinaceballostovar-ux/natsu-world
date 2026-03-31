@@ -1,0 +1,34 @@
+# ==========================================
+# NATSU WORLD - ROBOTS.TXT 🧸
+# Creadora: Annie Andreina
+# ==========================================
+
+User-agent: *
+
+# 1. Áreas permitidas (Para que aparezcas en Google)
+Allow: /
+Allow: /assets/css/
+Allow: /assets/images/
+Allow: /js/
+
+# 2. Áreas PRIVADAS (No indexar contenido de usuarios)
+# Evita que las conversaciones o perfiles internos salgan en búsquedas
+Disallow: /natsuchats/
+Disallow: /messages/
+Disallow: /temp/
+Disallow: /api/
+
+# 3. Seguridad de Archivos (Protección del sistema)
+Disallow: /config/
+Disallow: /functions/
+Disallow: /db_connect.php
+Disallow: /config.php
+Disallow: /functions.php
+Disallow: /.htaccess
+
+# 4. Evitar rastreo de búsquedas internas
+Disallow: /*?s=
+Disallow: /*?search=
+
+# 5. Ruta al mapa del sitio (Sitemap)
+Sitemap: https://natsu-world.infinityfreeapp.com/sitemap.xml

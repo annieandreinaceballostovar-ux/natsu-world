@@ -1,0 +1,16 @@
+{
+  "app_name": "Natsu World 🧸",
+  "version": "1.0.2",
+  "build_number": 20260330,
+  "update_date": "2026-03-30",
+  "apk_url": "https://natsu-world.infinityfreeapp.com/download/NatsuWorld_v1.0.2.apk",
+  "force_update": false,
+  "changelog": [
+    "Mejora en la velocidad de carga del feed",
+    "Corrección en el registro de usuarios",
+    "Nuevos estilos aesthetic para el perfil",
+    "Optimización del Service Worker para modo offline"
+  ],
+  "api_version": "v1.0",
+  "min_android_version": "7.0"
+}
