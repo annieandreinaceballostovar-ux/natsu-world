@@ -4,57 +4,104 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Natsu World 🎀</title>
-
     <link rel="stylesheet" href="Style.css">
-    <link rel="manifest" href="manifest.json">
-    <link rel="icon" href="oso.png" type="image/png">
+    <style>
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: #fff5f7; }
+        
+        /* Encabezado Fijo */
+        header { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 10px 15px; background: white; position: fixed; top: 0; 
+            width: 100%; z-index: 100; box-sizing: border-box; border-bottom: 2px solid #ffeef2;
+        }
+        .logo-app { display: flex; align-items: center; gap: 8px; color: #fd6698; font-weight: bold; }
+
+        /* Panel de Publicación estilo Facebook */
+        main { margin-top: 70px; padding: 15px; padding-bottom: 80px; }
+        
+        .post-card { 
+            background: white; border-radius: 20px; padding: 15px; 
+            position: relative; box-shadow: 0 5px 15px rgba(253, 102, 152, 0.1);
+            margin-bottom: 20px; border: 1px solid #ffeef2;
+        }
+
+        /* El MARCO sobre la foto de la publicación */
+        .contenedor-foto { position: relative; width: 100%; margin: 10px 0; }
+        .foto-publicada { width: 100%; border-radius: 15px; display: block; }
+        .marco-decorativo { 
+            position: absolute; top: -5px; left: -5px; width: calc(100% + 10px); 
+            height: calc(100% + 10px); pointer-events: none; object-fit: fill;
+        }
+
+        /* Decoraciones flotantes */
+        .deco-lazo { position: absolute; top: -10px; left: -10px; width: 40px; }
+        .deco-oso { position: absolute; top: -15px; right: -5px; width: 45px; }
+        .deco-pastel { position: absolute; bottom: 45px; right: 5px; width: 40px; }
+
+        /* Botones de interacción (Like/Comentario) */
+        .acciones-bar { 
+            display: flex; gap: 20px; padding-top: 10px; border-top: 1px solid #f9f9f9; 
+            align-items: center; 
+        }
+        .btn-interact { width: 28px; cursor: pointer; transition: 0.2s; }
+        .btn-interact:active { transform: scale(1.2); }
+    </style>
 </head>
 <body>
-    
-    <div id="app" class="app-container">
-        <div class="osito-container">
-            <img src="osito.gif" alt="Osito Natsu" class="osito-gif">
-            <img src="osito-mini.png" alt="Mini Osito" class="osito-mini"> 
+
+    <header>
+        <div class="logo-app">
+            <img src="osito-mini.png" width="25">
+            <span>Natsu World</span>
         </div>
-
-        <div class="botones-container">
-            <button id="btn-video">
-                <img src="icon-video.png" alt="Video">
-            </button>
-            <button id="btn-sonido">
-                <img src="sonido_on.png" alt="Sonido">
-            </button>
-            <button id="btn-subir">
-                <img src="subir-video.png" alt="Subir Video">
-            </button>
+        <div style="display: flex; gap: 12px;">
+            <img src="icon-video.png" width="22">
+            <img id="btn-sonido" src="sonido_on.png" width="22" style="cursor:pointer;">
         </div>
+    </header>
 
-        <img src="marco.png" alt="Marco" class="marco">
-        <img src="corazon.png" alt="Corazón" class="corazon">
+    <main>
+        <div class="post-card">
+            <img src="lazo.png" class="deco-lazo">
+            <img src="oso.png" class="deco-oso">
 
-        <audio id="audio-notificacion" src="notificacion.mp4a" preload="auto"></audio>
-        <audio id="audio-vibracion" src="vibracion.m4a" preload="auto"></audio>
-    </div>
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                <img src="perfil.png" style="width: 40px; height: 40px; border-radius: 50%;">
+                <div>
+                    <strong style="font-size: 14px;">Annie Ceballos Tovar</strong><br>
+                    <span style="font-size: 11px; color: #aaa;">Hace un momento ✨</span>
+                </div>
+            </div>
 
-    <script src="js.js"></script>
-    <script src="service-worker.js"></script>
+            <div class="contenedor-foto">
+                <img src="fondo-default.jpg" class="foto-publicada">
+                <img src="marco.png" class="marco-decorativo"> </div>
+
+            <img src="pastel.png" class="deco-pastel">
+
+            <div class="acciones-bar">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                    <img src="corazon.png" class="btn-interact" alt="Like">
+                    <span style="font-size: 12px; color: #fd6698; font-weight: bold;">Me gusta</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                    <img src="comentario.png" class="btn-interact" alt="Comentar">
+                    <span style="font-size: 12px; color: #888;">Comentar</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <audio id="audio-notificacion" src="notificacion.mp4a" preload="auto"></audio>
 
     <script>
-        // Lógica para que el botón de sonido funcione al tocarlo
+        // Función para el sonido al tocar el icono de la corneta
         const btnSonido = document.getElementById('btn-sonido');
         const audio = document.getElementById('audio-notificacion');
-
-        if(btnSonido && audio) {
-            btnSonido.addEventListener('click', () => {
-                audio.play().catch(e => console.log("Toca la pantalla primero para activar el audio"));
-            });
-        }
-
-        // Registro del modo App (PWA)
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('service-worker.js')
-            .then(reg => console.log('Natsu World listo para instalar'));
-        }
+        btnSonido.addEventListener('click', () => {
+            audio.play().catch(() => console.log("Toca la pantalla primero"));
+        });
     </script>
+    <script src="js.js"></script>
 </body>
 </html>
