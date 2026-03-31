@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sin conexión | Natsu World 🧸</title>
+  <style>
+    /* CSS Incrustado para que cargue sin internet */
+    body {
+        background: #fffbe3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+    }
+    .msg {
+        animation: fadeIn 0.5s ease-in;
+    }
+    img {
+        width: 120px;
+        margin-bottom: 22px;
+        filter: drop-shadow(0 5px 10px rgba(253, 102, 152, 0.2));
+    }
+    h2 {
+        color: #fd6698;
+        /* Fuentes de respaldo por si no hay conexión a Google Fonts */
+        font-family: 'Fredoka One', 'Comic Sans MS', cursive;
+        margin-bottom: 10px;
+    }
+    p {
+        color: #856991;
+        font-family: 'Quicksand', 'Segoe UI', sans-serif;
+        line-height: 1.5;
+    }
+    .btn-retry {
+        margin-top: 20px;
+        background: #fd6698;
+        color: white;
+        border: none;
+        padding: 10px 25px;
+        border-radius: 20px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: bold;
+        cursor: pointer;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="msg">
+    <img src="assets/images/osito.gif" alt="Sin conexión">
+    <h2>¡Ups! Sin conexión 🧸</h2>
+    <p>Parece que el internet se fue de paseo.<br>Vuelve pronto para seguir en <b>Natsu World</b> 🌸</p>
+    
+    <button class="btn-retry" onclick="window.location.reload()">Reintentar</button>
+  </div>
+
+  <script>
+    // Detectar automáticamente cuando vuelve el internet
+    window.addEventListener('online', () => {
+        window.location.href = 'index.html';
+    });
+  </script>
+</body>
+</html>

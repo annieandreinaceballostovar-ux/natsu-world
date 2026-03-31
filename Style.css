@@ -1,0 +1,117 @@
+/* --- NATSU WORLD - SISTEMA CSS ACTUALIZADO 🧸 --- */
+
+/* 1. Estilos Globales */
+body {
+    background-image: url('assets/images/fondo-default.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow-x: hidden;
+    /* Espacio para que el header no tape el contenido en tu Redmi */
+    padding-top: 80px; 
+}
+
+/* 2. EL OSITO COMO LOGO (Header y Funciones) */
+/* Añade esta clase a la imagen del osito en tu <header> */
+.natsu-logo-header {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    background: white;
+    box-shadow: 0 2px 10px rgba(253, 102, 152, 0.3);
+}
+
+/* 3. CONTENEDOR DE PUBLICACIÓN (Donde van los Marcos) */
+.publicacion-container {
+    background: rgba(255, 255, 255, 0.85); /* Un poco más opaco para que se lea mejor */
+    backdrop-filter: blur(8px);
+    border-radius: 25px;
+    padding: 20px;
+    margin: 30px auto; /* Más margen para que los marcos no se peguen */
+    width: 85%;
+    max-width: 500px;
+    position: relative; 
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    border: 2px solid #ffeef2;
+}
+
+/* MARCO SUPERIOR: El Osito Natsu */
+.publicacion-container::before {
+    content: '';
+    position: absolute;
+    top: -25px;
+    left: -20px;
+    width: 65px;
+    height: 65px;
+    background-image: url('assets/frames/oso.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* MARCO INFERIOR: El Pastel o Corazón */
+.publicacion-container::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    right: -15px;
+    width: 50px;
+    height: 50px;
+    background-image: url('assets/frames/pastel.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 5;
+    pointer-events: none;
+}
+
+/* 4. Títulos de Secciones (NatsuClips, NatsuChats) */
+.seccion-titulo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 25px 0 10px;
+    background: rgba(255, 255, 255, 0.6);
+    padding: 5px;
+    border-radius: 50px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.seccion-titulo {
+    color: #fd6698;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin: 0;
+    text-shadow: 1px 1px 0px white;
+}
+
+.titulo-frame {
+    width: 28px;
+    height: 28px;
+}
+
+/* 5. EL BOTÓN DE ENTRAR (Ajuste para que no falle) */
+#btnEntrar {
+    background: #fd6698;
+    color: white;
+    border: none;
+    padding: 12px 0;
+    width: 100%;
+    border-radius: 15px;
+    font-weight: bold;
+    margin-top: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 0px #d44d7a;
+    transition: 0.1s;
+}
+
+#btnEntrar:active {
+    transform: translateY(3px);
+    box-shadow: 0 1px 0px #d44d7a;
+}
