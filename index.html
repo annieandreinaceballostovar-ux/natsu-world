@@ -1,67 +1,95 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Natsu World 🎀</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Natsu World</title>
+<link rel="stylesheet" href="styles.css">
+
+<style>
+body{
+margin:0;
+font-family: Arial, sans-serif;
+background: linear-gradient(180deg,#ffe6f0,#f7eaff);
+}
+
+header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:10px 15px;
+background:rgba(255,255,255,0.9);
+position:fixed;
+top:0;
+width:100%;
+box-sizing:border-box;
+}
+
+main{
+margin-top:70px;
+padding:10px;
+}
+
+.card{
+background:white;
+padding:15px;
+border-radius:15px;
+box-shadow:0 4px 10px rgba(0,0,0,0.05);
+margin-bottom:15px;
+}
+
+.titulo{
+color:#fd6698;
+}
+</style>
 </head>
+
 <body>
 
-    <header style="display: flex; justify-content: space-between; align-items: center; padding: 10px 15px; background: rgba(255,255,255,0.7); backdrop-filter: blur(5px); position: fixed; top: 0; width: 100%; z-index: 10; box-sizing: border-box;">
-        <div style="position: relative; width: 45px; height: 45px;">
-            <img src="assets/images/perfil.png" style="width: 100%; border-radius: 50%; border: 2px solid #fff;">
-            <img src="assets/frames/corazon.png" style="position: absolute; top: -5px; left: -5px; width: 55px; pointer-events: none;">
-        </div>
-        <div style="display: flex; gap: 15px; margin-right: 10px;">
-            <img src="assets/icons/icon-call.png" style="width: 22px;">
-            <img src="assets/icons/icon-video.png" style="width: 22px;">
-            <img src="assets/icons/sonido-on.png" style="width: 22px;">
-        </div>
-    </header>
+<header>
+<div>
+<img src="perfil.png" alt="perfil" width="40">
+</div>
 
-    <main style="margin-top: 80px; padding: 10px; padding-bottom: 100px; overflow-y: auto; height: calc(100vh - 80px);">
+<div>
+<img src="icon-call.png" width="20" alt="">
+<img src="icon-video.png" width="20" alt="">
+<img src="sonido-on.png" width="20" alt="">
+</div>
+</header>
 
-        <div class="publicacion-container">
-            <img src="assets/frames/oso.png" class="osito-decoracion" alt="Oso Decorativo">
-            
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                <img src="assets/images/perfil.png" style="width: 40px; border-radius: 50%;">
-                <div>
-                    <span style="font-weight: bold; color: #333;">Annie Ceballos</span><br>
-                    <span style="font-size: 12px; color: #777;">Hace 5 min</span>
-                </div>
-            </div>
-            
-            <p style="margin: 0; color: #555; font-size: 14px;">¡Bienvenidos a mi nueva red social, Natsu World! 🎀 Espero que les guste mucho. #Aesthetic #NatsuIA</p>
-            
-            <img src="assets/images/fondo-default.jpg" style="width: 100%; border-radius: 15px; margin-top: 10px; border: 1px solid #ffeef2;">
-        </div>
+<main>
 
-        <div class="seccion-titulo-container">
-            <h2 class="seccion-titulo">NatsuClips</h2>
-            <img src="assets/frames/pastel.png" class="titulo-frame" alt="Decoración">
-        </div>
-        <div style="text-align: center; color: #888; font-size: 14px;">(Aquí irían los videos cortos...)</div>
+<div class="card">
+<h3>Natsu World</h3>
+<p>¡Bienvenidos a mi app! 🎀</p>
+<img src="fondo-default.jpg" alt="" style="width:100%;border-radius:10px;">
+</div>
 
-        <div class="seccion-titulo-container">
-            <h2 class="seccion-titulo">NatsuChats</h2>
-            <img src="assets/icons/comentario.png" class="titulo-frame" alt="Decoración">
-        </div>
-        <div style="text-align: center; color: #888; font-size: 14px;">(Aquí irían tus chats...)</div>
+<h2 class="titulo">NatsuClips</h2>
+<img src="pastel.png" width="40" alt="">
 
-    </main>
+<h2 class="titulo">NatsuChats</h2>
+<img src="comentario.png" width="40" alt="">
 
-    <div id="age-modal" style="position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: flex; justify-content: center; align-items: center; z-index: 100;">
-        <div style="background: white; padding: 30px 20px; border-radius: 25px; text-align: center; position: relative; width: 85%; max-width: 320px;">
-            <img src="assets/frames/oso.png" style="width: 70px; margin-bottom: 10px;">
-            <h2 style="color: #fd6698; margin: 0; font-size: 1.2rem;">¡Hola, Annie! 🌸</h2>
-            <p style="font-size: 13px; color: #555;">¿Eres mayor de edad para entrar?</p>
-            <button id="btnEntrar" style="background: #fd6698; color: white; border: none; padding: 12px 0; width: 100%; border-radius: 15px; font-weight: bold; margin-top: 15px; cursor: pointer;">SÍ, SOY MAYOR</button>
-            <img src="assets/frames/pastel.png" style="position: absolute; bottom: -10px; right: -10px; width: 55px;">
-        </div>
-    </div>
+</main>
 
-    <script src="js.js"></script>
+<audio id="audio-notificacion" src="notificacion.m4a"></audio>
+
+<div id="modal" style="position:fixed;inset:0;background:black;color:white;display:flex;align-items:center;justify-content:center;">
+<div style="background:white;color:black;padding:20px;border-radius:15px;text-align:center;">
+<p>¿Eres mayor de edad?</p>
+<button onclick="entrar()">Entrar</button>
+</div>
+</div>
+
+<script>
+function entrar(){
+document.getElementById("modal").style.display="none";
+}
+</script>
+
+<script src="js.js"></script>
+
 </body>
 </html>
