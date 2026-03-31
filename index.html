@@ -4,38 +4,49 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Natsu World 🎀</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="app_style.css">
 </head>
 <body>
 
     <div id="scr_login" class="login-screen">
         <div class="login-card">
-            <img src="img_oso_logo.png" style="width: 80px;">
+            <img src="img_oso_logo.png" class="logo-animado">
             <h2 id="txt_welcome">Natsu World</h2>
+            
             <select id="sel_lang" onchange="translateApp()">
-                <option value="es">Venezuela 🇻🇪</option>
-                <option value="en">USA 🇺🇸</option>
-                <option value="ko">Korea 🇰🇷</option>
+                <option value="es">Venezuela 🇻🇪 (Español)</option>
+                <option value="en">USA 🇺🇸 (English)</option>
+                <option value="ko">Korea 🇰🇷 (한국어)</option>
             </select>
-            <input type="text" id="in_name" placeholder="Tu nombre artístico">
+
+            <input type="text" id="in_name" placeholder="¿Cómo te llamas?">
+            <p style="font-size: 12px; color: #fd6698;">Fecha de nacimiento (Obligatorio 18+):</p>
             <input type="date" id="in_birth">
-            <button class="btn-entrar" onclick="checkAccess()">Entrar ✨</button>
+            
+            <button class="btn-entrar" onclick="checkAccess()">Entrar al Mundo ✨</button>
         </div>
     </div>
 
     <div id="scr_app" class="hidden">
         <header class="app-header">
-            <input type="text" placeholder="🔍 Buscar en Natsu World...">
+            <input type="text" id="main_search" placeholder="🔍 Buscar amigos o contactos...">
         </header>
 
         <main id="view_area"></main>
 
         <nav class="nav-bar">
-            <div class="nav-item" onclick="loadView('clips')"><img src="img_icon_video.png"><span>Clips</span></div>
-            <div class="nav-item" onclick="loadView('chats')"><img src="img_icon_enviar.png"><span>Chats</span></div>
-            <div class="nav-item" onclick="loadView('feed')"><img src="img_oso_logo.png"><span>Feed</span></div>
-            <div class="nav-item" onclick="loadView('profile')"><img src="img_icon_perfil.png"><span>Perfil</span></div>
+            <div class="nav-item" onclick="loadView('clips')">
+                <img src="img_icon_video.png"><span>Clips</span>
+            </div>
+            <div class="nav-item" onclick="loadView('chats')">
+                <img src="img_icon_enviar.png"><span>Natsuchats</span>
+            </div>
+            <div class="nav-item" onclick="loadView('feed')">
+                <img src="img_oso_logo.png"><span>NatsuFeed</span>
+            </div>
+            <div class="nav-item" onclick="loadView('profile')">
+                <img src="img_icon_perfil.png"><span>Perfil</span>
+            </div>
         </nav>
     </div>
 
