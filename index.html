@@ -2,94 +2,130 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Natsu World</title>
 <link rel="stylesheet" href="styles.css">
-
 <style>
-body{
-margin:0;
-font-family: Arial, sans-serif;
-background: linear-gradient(180deg,#ffe6f0,#f7eaff);
+body { 
+    margin: 0; 
+    font-family: 'Segoe UI', sans-serif; 
+    background-color: #fff5f7; 
+    overflow-x: hidden; 
 }
 
-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:10px 15px;
-background:rgba(255,255,255,0.9);
-position:fixed;
-top:0;
-width:100%;
-box-sizing:border-box;
+/* Pantalla de Inicio / Bienvenida */
+#pantalla-inicio {
+    position: fixed; 
+    inset: 0; 
+    background: white; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    z-index: 1000; 
+    text-align: center;
+}
+.natsu-logo-inicio { 
+    width: 120px; 
+    animation: flotar 2s infinite ease-in-out; 
+}
+@keyframes flotar { 
+    0%, 100% { transform: translateY(0); } 
+    50% { transform: translateY(-10px); } 
 }
 
-main{
-margin-top:70px;
-padding:10px;
+/* Header con el nombre y el osito */
+header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 10px 15px; 
+    background: rgba(255,255,255,0.8); 
+    backdrop-filter: blur(10px); 
+    position: fixed; 
+    top: 0; 
+    width: 100%; 
+    z-index: 100; 
+    box-sizing: border-box; 
+    border-bottom: 1px solid #ffeef2;
 }
+.app-nombre { 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+    font-weight: bold; 
+    color: #fd6698; 
+    font-size: 1.1rem; 
+}
+.natsu-mini { width: 25px; }
 
-.card{
-background:white;
-padding:15px;
-border-radius:15px;
-box-shadow:0 4px 10px rgba(0,0,0,0.05);
-margin-bottom:15px;
-}
+.perfil-header { position: relative; width: 45px; height: 45px; }
+.perfil-header .foto { width: 100%; border-radius: 50%; }
+.perfil-header .marco { position: absolute; top: -5px; left: -5px; width: 55px; pointer-events: none; }
 
-.titulo{
-color:#fd6698;
+main { margin-top: 80px; padding: 15px; padding-bottom: 100px; }
+
+.post { 
+    background: white; 
+    border-radius: 25px; 
+    padding: 15px; 
+    position: relative; 
+    border: 1px solid #ffeef2; 
+    margin-bottom: 25px;
 }
+.deco-oso { position: absolute; top: -15px; right: -10px; width: 50px; }
+.post-img { width: 100%; border-radius: 20px; margin: 10px 0; }
+.acciones { display: flex; gap: 20px; padding: 10px 5px; }
+.btn-accion { width: 28px; cursor: pointer; }
 </style>
 </head>
-
 <body>
 
-<header>
-<div>
-<img src="perfil.png" alt="perfil" width="40">
+<div id="pantalla-inicio" onclick="this.style.display='none'">
+    <img src="oso.png" class="natsu-logo-inicio" alt="Osito">
+    <h1 style="color: #fd6698; margin-top: 20px;">Natsu World</h1>
+    <p style="color: #888;">Toca para entrar</p>
 </div>
 
-<div>
-<img src="icon-call.png" width="20" alt="">
-<img src="icon-video.png" width="20" alt="">
-<img src="sonido-on.png" width="20" alt="">
-</div>
+<header>
+    <div class="perfil-header">
+        <img src="perfil.png" class="foto" alt="Perfil">
+        <img src="marco.png" class="marco" alt="Marco">
+    </div>
+
+    <div class="app-nombre">
+        <img src="oso.png" class="natsu-mini" alt="Osito">
+        <span>Natsu World</span>
+    </div>
+
+    <div style="display: flex; gap: 10px;">
+        <img src="icon-call.png" style="width: 20px;" alt="Llamada">
+        <img src="icon-video.png" style="width: 20px;" alt="Video">
+    </div>
 </header>
 
 <main>
-
-<div class="card">
-<h3>Natsu World</h3>
-<p>¡Bienvenidos a mi app! 🎀</p>
-<img src="fondo-default.jpg" alt="" style="width:100%;border-radius:10px;">
-</div>
-
-<h2 class="titulo">NatsuClips</h2>
-<img src="pastel.png" width="40" alt="">
-
-<h2 class="titulo">NatsuChats</h2>
-<img src="comentario.png" width="40" alt="">
-
+    <div class="post">
+        <img src="oso.png" class="deco-oso" alt="Osito">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <img src="perfil.png" style="width: 35px; border-radius: 50%;" alt="Perfil">
+            <div>
+                <strong>Annie Ceballos</strong><br>
+                <span style="font-size: 11px; color: #999;">¡Bienvenida!</span>
+            </div>
+        </div>
+        <p style="font-size: 14px; margin: 10px 0;">¡Mira mi diseño con el osito Natsu!</p>
+        <img src="fondo-default.jpg" class="post-img" alt="Publicación">
+        <div class="acciones">
+            <img src="corazon.png" class="btn-accion" alt="Me gusta">
+            <img src="comentario.png" class="btn-accion" alt="Comentario">
+        </div>
+    </div>
 </main>
 
 <audio id="audio-notificacion" src="notificacion.m4a"></audio>
-
-<div id="modal" style="position:fixed;inset:0;background:black;color:white;display:flex;align-items:center;justify-content:center;">
-<div style="background:white;color:black;padding:20px;border-radius:15px;text-align:center;">
-<p>¿Eres mayor de edad?</p>
-<button onclick="entrar()">Entrar</button>
-</div>
-</div>
-
-<script>
-function entrar(){
-document.getElementById("modal").style.display="none";
-}
-</script>
+<audio id="audio-vibracion" src="vibracion.m4a"></audio>
 
 <script src="js.js"></script>
-
 </body>
 </html>
