@@ -1,125 +1,62 @@
-/**
- * NATSU WORLD - i18n.js 🌍
- * Sistema de traducción + Conexión Supabase + Identidad IA
- * Creado el 29 de marzo de 2026 por Annie Andreina Ceballos Tovar
- */
-
-// 1. IDENTIDAD DE LA APP (¡No tocar! Es tu firma oficial 🧸)
-const NATSU_INFO = {
-    nombre: "Natsu World",
-    creadora: "Annie Andreina Ceballos Tovar",
-    fechaCreacion: "29 de marzo de 2026",
-    mision: "La red social más aesthetic y kawaii"
-};
-
-// 2. CONFIGURACIÓN SUPABASE (Memoria de la App)
-const supabaseUrl = 'https://qfsqgfqjhgqdxcgtkwak.supabase.co';
-const supabaseKey = 'sb_publishable_bZGiMk89JbDSM1CoZx_s3Q_gRGM-qDd';
-const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
-
-// 3. MENSAJES Y TRADUCCIONES
-const mensajes = {
-    es: {
-        saludo: '¡Bienvenido a Natsu World! 🧸',
-        publicar: 'Publicar',
-        chat: 'Chat',
-        subir: 'Subir',
-        perfil: 'Perfil',
-        ia_status: 'En línea e inteligente',
-        placeholder_chat: 'Escribe un mensaje kawaii...',
-        btn_enviar: 'Enviar',
-        error_edad: 'Debes ser mayor de 18 años.',
-        ajustes: 'Ajustes',
-        registro_exito: `✨ ¡Bienvenida a casa! ${NATSU_INFO.creadora} te da la bienvenida.`
+// 1. DICCIONARIO DE IDIOMAS (i18n)
+const i18n_natsu = {
+    es: { 
+        bienvenida: "¡Bienvenida a Natsu World! 🧸", 
+        error_edad: "Debes ser mayor de 18 años para entrar.",
+        placeholder_chat: "Escríbele algo a Natsu IA...",
+        btn_entrar: "Entrar al Mundo ✨"
     },
-    en: {
-        saludo: 'Welcome to Natsu World! 🧸',
-        publicar: 'Post',
-        chat: 'Chat',
-        subir: 'Upload',
-        perfil: 'Profile',
-        ia_status: 'Online and smart',
-        placeholder_chat: 'Write a kawaii message...',
-        btn_enviar: 'Send',
-        error_edad: 'You must be 18 or older.',
-        ajustes: 'Settings',
-        registro_exito: `✨ Welcome home! ${NATSU_INFO.creadora} welcomes you.`
+    en: { 
+        bienvenida: "Welcome to Natsu World! 🧸", 
+        error_edad: "You must be 18+ years old to enter.",
+        placeholder_chat: "Write something to Natsu IA...",
+        btn_entrar: "Enter the World ✨"
+    },
+    ko: { 
+        bienvenida: "나츠 월드에 오신 것을 환영합니다! 🧸", 
+        error_edad: "18세 이상이어야 합니다.",
+        placeholder_chat: "나츠 AI에게 메시지를 보내세요...",
+        btn_entrar: "세계에 들어가기 ✨"
     }
 };
 
-// --- FUNCIONES DE TRADUCCIÓN ---
-
-function getLang() {
-    let lang = localStorage.getItem('idioma') || navigator.language.slice(0, 2);
-    return mensajes[lang] ? lang : 'es';
+// 2. FUNCIÓN PARA CAMBIAR IDIOMA (Detectar y Guardar)
+function detectarIdioma() {
+    // Obtenemos el idioma seleccionado del <select>
+    const lang = document.getElementById('login-pais').value;
+    
+    // Lo guardamos en la memoria del celular para que no se borre
+    localStorage.setItem('natsu_lang', lang);
+    
+    // Cambiamos los textos en la pantalla de inicio
+    const textos = i18n_natsu[lang];
+    document.getElementById('txt_welcome').textContent = textos.bienvenida;
+    document.getElementById('btn_acceder').textContent = textos.btn_entrar;
 }
 
-function actualizarInterfaz() {
-    const elementos = document.querySelectorAll('[data-i18n]');
-    const lang = getLang();
+// 3. VALIDACIÓN DE ACCESO 18+
+function validarAcceso() {
+    const fechaInput = document.getElementById('login-fecha').value;
+    if (!fechaInput) return alert("Por favor, pon tu fecha de nacimiento 🎀");
 
-    elementos.forEach(el => {
-        const key = el.getAttribute('data-i18n');
-        const traduccion = mensajes[lang][key] || mensajes['es'][key];
+    const fechaNac = new Date(fechaInput);
+    const hoy = new Date();
+    let edad = hoy.getFullYear() - fechaNac.getFullYear();
+    
+    // Ajuste por si aún no ha cumplido años este mes
+    const m = hoy.getMonth() - fechaNac.getMonth();
+    if (m < 0 || (m === 0 && hoy.getDate() < fechaNac.getDate())) {
+        edad--;
+    }
 
-        if (traduccion) {
-            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-                el.placeholder = traduccion;
-            } else {
-                el.textContent = traduccion;
-            }
-        }
-    });
-    document.documentElement.lang = lang;
-}
+    const idiomaActual = localStorage.getItem('natsu_lang') || 'es';
 
-// --- FUNCIONES DE BASE DE DATOS (Supabase) ---
-
-async function registrarEnNatsu(nombre, email) {
-    const { data, error } = await _supabase
-        .from('perfiles')
-        .insert([{ 
-            usuario: nombre, 
-            correo: email,
-            creado_el: NATSU_INFO.fechaCreacion 
-        }]);
-
-    if (error) {
-        console.error("Error:", error.message);
-        alert("¡Ups! Hubo un problemita rosa, intenta de nuevo 🌸");
+    if (edad < 18) {
+        alert(i18n_natsu[idiomaActual].error_edad);
     } else {
-        const lang = getLang();
-        alert(mensajes[lang].registro_exito);
-        
-        // Limpiar campos
-        document.getElementById('nombre-usuario').value = "";
-        document.getElementById('correo-usuario').value = "";
+        // Si es mayor de 18, entramos a la App
+        document.getElementById('scr_login').style.display = 'none';
+        document.getElementById('scr_app').classList.remove('hidden');
+        mostrarSeccion('feed'); // Empieza en el Feed
     }
 }
-
-// --- CONFIGURACIÓN DE LA IA (Gemini) ---
-const IA_CONFIG = {
-    apiKey: "TU_LLAVE_DE_IA_AQUÍ", // <--- Pega aquí tu llave cuando la tengas
-    instrucciones: `Eres la IA de ${NATSU_INFO.nombre}. Fuiste creada por ${NATSU_INFO.creadora} el ${NATSU_INFO.fechaCreacion}. Responde siempre de forma linda y kawaii.`
-};
-
-// --- INICIALIZACIÓN ---
-
-document.addEventListener('DOMContentLoaded', () => {
-    actualizarInterfaz();
-
-    // Escuchar el botón de registro
-    const btnRegistrar = document.getElementById('btn-registrar');
-    if (btnRegistrar) {
-        btnRegistrar.addEventListener('click', () => {
-            const nombre = document.getElementById('nombre-usuario').value;
-            const correo = document.getElementById('correo-usuario').value;
-            
-            if (nombre && correo) {
-                registrarEnNatsu(nombre, correo);
-            } else {
-                alert("🌸 Cielo, rellena todos los campos por favor.");
-            }
-        });
-    }
-});
