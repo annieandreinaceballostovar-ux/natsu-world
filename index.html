@@ -3,56 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Natsu World 🎀</title>
+    <title>Natsu World 🎀 | Creado por Annie Ceballos</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <link rel="stylesheet" href="Style.css">
-    <style>
-        :root { --rosa-natsu: #fd6698; --fondo-pastel: #fff5f7; }
-        body { margin: 0; background-color: var(--fondo-pastel); font-family: 'Segoe UI', sans-serif; }
-        
-        /* Contenedor Principal estilo Feed */
-        .feed-container { padding: 15px; margin-top: 60px; display: flex; flex-direction: column; gap: 20px; }
 
-        /* La Card de Publicación */
-        .natsu-post { 
-            background: white; border-radius: 25px; padding: 15px; 
-            box-shadow: 0 10px 20px rgba(253, 102, 152, 0.05);
-            border: 1px solid #ffeef2; position: relative;
+    <style>
+        /* Ajustes finales para que el diseño de Annie brille */
+        :root { --rosa-natsu: #fd6698; --fondo-pastel: #fff5f7; }
+        
+        body { 
+            margin: 0; 
+            background-color: var(--fondo-pastel); 
+            font-family: 'Segoe UI', sans-serif; 
+            padding-top: 70px;
         }
 
-        /* Foto con el MARCO perfecto */
+        /* El Feed de Publicaciones */
+        .feed-container { padding: 15px; display: flex; flex-direction: column; gap: 20px; align-items: center; }
+
+        /* Card con los marcos que definimos */
+        .natsu-post { 
+            background: white; 
+            border-radius: 25px; 
+            padding: 15px; 
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 10px 20px rgba(253, 102, 152, 0.05);
+            border: 1px solid #ffeef2; 
+            position: relative;
+        }
+
+        /* Foto con el Marco de Natsu World */
         .foto-wrapper { position: relative; width: 100%; border-radius: 15px; overflow: hidden; margin-top: 10px; }
         .foto-principal { width: 100%; display: block; border-radius: 15px; }
-        .marco-overlay { 
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            pointer-events: none; object-fit: stretch;
+        .marco-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+
+        /* Decoraciones (Osito y Pastel) */
+        .deco-lazo { position: absolute; top: -15px; left: -15px; width: 55px; z-index: 10; }
+        .deco-pastel { position: absolute; bottom: 65px; right: -5px; width: 45px; z-index: 10; }
+
+        /* Sección de Registro Aesthetic */
+        #registro-seccion {
+            background: white;
+            padding: 25px;
+            border-radius: 30px;
+            border: 2px dashed var(--rosa-natsu);
+            margin: 20px auto;
+            max-width: 320px;
+            text-align: center;
+            box-shadow: 0 8px 15px rgba(253, 102, 152, 0.1);
         }
 
-        /* Decoraciones en las esquinas */
-        .deco-lazo { position: absolute; top: -10px; left: -10px; width: 45px; z-index: 10; }
-        .deco-pastel { position: absolute; bottom: 60px; right: 5px; width: 35px; }
+        .natsu-input {
+            width: 85%;
+            padding: 12px;
+            border-radius: 15px;
+            border: 1px solid #ffb6c1;
+            margin-bottom: 12px;
+            outline: none;
+            font-family: 'Segoe UI', sans-serif;
+        }
 
-        /* Botones de Interacción */
-        .footer-post { display: flex; gap: 15px; padding: 12px 5px 0; align-items: center; }
-        .icon-action { width: 28px; transition: transform 0.2s; cursor: pointer; }
-        .icon-action:active { transform: scale(1.3); }
+        #btn-registrar {
+            background: var(--rosa-natsu);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 90%;
+            transition: 0.3s;
+            box-shadow: 0 4px 0px #d44d7a;
+        }
+
+        #btn-registrar:active { transform: translateY(3px); box-shadow: 0 1px 0px #d44d7a; }
     </style>
 </head>
 <body>
 
-    <header style="position: fixed; top: 0; width: 100%; background: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 100; box-sizing: border-box;">
+    <header>
         <div style="display: flex; align-items: center; gap: 10px;">
-            <img src="perfil.png" style="width: 35px; height: 35px; border-radius: 50%;">
+            <img src="oso.png" class="natsu-logo-header" style="width: 35px; height: 35px; border-radius: 50%;">
             <span style="color: var(--rosa-natsu); font-weight: bold;">Natsu World</span>
         </div>
         <img id="sonido-trigger" src="sonido_on.png" style="width: 25px; cursor: pointer;">
     </header>
 
     <div class="feed-container">
+        
         <div class="natsu-post">
             <img src="lazo.png" class="deco-lazo">
             
             <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-                <strong style="font-size: 14px; color: #333;">Annie Ceballos</strong>
+                <strong style="font-size: 14px; color: #333;">Annie Andreina Ceballos Tovar</strong>
                 <img src="oso.png" style="width: 20px;">
             </div>
 
@@ -63,36 +109,42 @@
 
             <img src="pastel.png" class="deco-pastel">
 
-            <div class="footer-post">
-                <img src="corazon.png" class="icon-action" id="like-btn">
-                <img src="comentario.png" class="icon-action">
-                <img src="enviar.png" class="icon-action" style="margin-left: auto; width: 22px;">
+            <div class="footer-post" style="display: flex; gap: 15px; padding-top: 10px;">
+                <img src="corazon.png" style="width: 25px;" id="like-btn">
+                <img src="comentario.png" style="width: 25px;">
+                <img src="enviar.png" style="width: 20px; margin-left: auto;">
             </div>
-<div id="registro-seccion" style="background: #fff0f5; padding: 20px; border-radius: 20px; border: 2px dashed #ffb6c1; margin: 20px auto; max-width: 300px; text-align: center;">
-    <h3 style="color: #ff85a1;">💖 Únete a Natsu World 💖</h3>
-    
-    <input type="text" id="nombre-usuario" placeholder="Tu lindo nombre" style="width: 80%; padding: 10px; border-radius: 15px; border: 1px solid #ffb6c1; margin-bottom: 10px;">
-    
-    <input type="email" id="correo-usuario" placeholder="Tu correo" style="width: 80%; padding: 10px; border-radius: 15px; border: 1px solid #ffb6c1; margin-bottom: 10px;">
-    
-    <button id="btn-registrar" style="background: #ff85a1; color: white; border: none; padding: 10px 20px; border-radius: 20px; cursor: pointer; font-weight: bold;">
-        ¡Registrarme! ✨
-    </button>
-</div>
+        </div>
+
+        <div id="registro-seccion">
+            <h3 style="color: var(--rosa-natsu); margin-top: 0;" data-i18n="saludo">¡Únete a Natsu World! 🧸</h3>
+            <p style="font-size: 12px; color: #ff85a1; margin-bottom: 15px;">La IA de Annie te está esperando.</p>
+            
+            <input type="text" id="nombre-usuario" class="natsu-input" placeholder="Tu nombre...">
+            <input type="email" id="correo-usuario" class="natsu-input" placeholder="Tu mejor correo...">
+            
+            <button id="btn-registrar">¡Registrarme! ✨</button>
+        </div>
+
     </div>
-<footer style="text-align: center; padding: 20px; font-family: 'Arial', sans-serif; color: #ff85a1;">
-    <p>🌸 <strong>Natsu World</strong> 🌸</p>
-    <p>Creado con ❤️ por: <strong>Annie Ceballos</strong></p>
-    <p style="font-size: 12px;">Lanzamiento: Marzo 2026</p>
-</footer>
-    <audio id="notif-audio" src="notificacion.mp4a)"></audio>
+
+    <footer style="text-align: center; padding: 40px 20px; color: var(--rosa-natsu); font-size: 14px;">
+        <p>🌸 <strong>Natsu World</strong> 🌸</p>
+        <p>Creado con ❤️ por: <strong>Annie Andreina Ceballos Tovar</strong></p>
+        <p style="font-size: 11px; opacity: 0.7;">Inteligencia Artificial activada el: <strong>29 de marzo de 2026</strong></p>
+    </footer>
+
+    <audio id="notif-audio" src="notificacion.mp4a"></audio>
+
+    <script src="i18n.js"></script>
 
     <script>
-        const btn = document.getElementById('sonido-trigger');
+        // Función para el sonido de bienvenida
+        const btnSonido = document.getElementById('sonido-trigger');
         const audio = document.getElementById('notif-audio');
-        btn.addEventListener('click', () => {
-            audio.play().catch(() => alert("Toca primero cualquier parte de la pantalla"));
+        btnSonido.addEventListener('click', () => {
+            audio.play().catch(() => alert("🌸 Toca la pantalla para activar el sonido de Natsu"));
         });
     </script>
 </body>
-</html>
+                </html>
