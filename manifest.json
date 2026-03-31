@@ -1,0 +1,38 @@
+
+Tu manifest.json tiene una estructura sólida, pero para que sea 100% profesional y Google Chrome (o el navegador de tu Redmi A5) lo reconozca como una aplicación instalable sin errores, le faltan un par de detalles técnicos importantes: los tamaños de iconos estándar y la propiedad purpose.
+
+Aquí tienes la versión editada y optimizada para que Natsu World se vea perfecta en Android:
+
+JSON
+{
+  "name": "Natsu World 🧸",
+  "short_name": "Natsu",
+  "description": "Red social kawaii con IA Gemini, feed y comunidad.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#FFF9FA",
+  "theme_color": "#FFB7B2",
+  "icons": [
+    {
+      "src": "assets/images/perfil.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/images/perfil.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "assets/images/perfil.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ],
+  "orientation": "portrait",
+  "categories": ["social", "entertainment"],
+  "lang": "es-VE"
+}
