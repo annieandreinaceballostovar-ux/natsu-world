@@ -1,8 +1,23 @@
 /**
  * NATSU WORLD - i18n.js 🌍
- * Sistema de traducción automática con persistencia
+ * Sistema de traducción + Conexión Supabase + Identidad IA
+ * Creado el 29 de marzo de 2026 por Annie Andreina Ceballos Tovar
  */
 
+// 1. IDENTIDAD DE LA APP (¡No tocar! Es tu firma oficial 🧸)
+const NATSU_INFO = {
+    nombre: "Natsu World",
+    creadora: "Annie Andreina Ceballos Tovar",
+    fechaCreacion: "29 de marzo de 2026",
+    mision: "La red social más aesthetic y kawaii"
+};
+
+// 2. CONFIGURACIÓN SUPABASE (Memoria de la App)
+const supabaseUrl = 'https://qfsqgfqjhgqdxcgtkwak.supabase.co';
+const supabaseKey = 'sb_publishable_bZGiMk89JbDSM1CoZx_s3Q_gRGM-qDd';
+const _supabase = supabase.createClient(supabaseUrl, supabaseKey);
+
+// 3. MENSAJES Y TRADUCCIONES
 const mensajes = {
     es: {
         saludo: '¡Bienvenido a Natsu World! 🧸',
@@ -14,7 +29,8 @@ const mensajes = {
         placeholder_chat: 'Escribe un mensaje kawaii...',
         btn_enviar: 'Enviar',
         error_edad: 'Debes ser mayor de 18 años.',
-        ajustes: 'Ajustes'
+        ajustes: 'Ajustes',
+        registro_exito: `✨ ¡Bienvenida a casa! ${NATSU_INFO.creadora} te da la bienvenida.`
     },
     en: {
         saludo: 'Welcome to Natsu World! 🧸',
@@ -26,29 +42,18 @@ const mensajes = {
         placeholder_chat: 'Write a kawaii message...',
         btn_enviar: 'Send',
         error_edad: 'You must be 18 or older.',
-        ajustes: 'Settings'
+        ajustes: 'Settings',
+        registro_exito: `✨ Welcome home! ${NATSU_INFO.creadora} welcomes you.`
     }
 };
 
-/**
- * Obtiene el idioma actual guardado o el del navegador
- */
+// --- FUNCIONES DE TRADUCCIÓN ---
+
 function getLang() {
     let lang = localStorage.getItem('idioma') || navigator.language.slice(0, 2);
-    return mensajes[lang] ? lang : 'es'; // Si el idioma no existe, por defecto español
+    return mensajes[lang] ? lang : 'es';
 }
 
-/**
- * Traduce una clave específica (Uso manual)
- */
-function traducir(key) {
-    const lang = getLang();
-    return mensajes[lang][key] || mensajes['es'][key] || key;
-}
-
-/**
- * Actualiza TODOS los elementos del HTML que tengan el atributo data-i18n
- */
 function actualizarInterfaz() {
     const elementos = document.querySelectorAll('[data-i18n]');
     const lang = getLang();
@@ -58,7 +63,6 @@ function actualizarInterfaz() {
         const traduccion = mensajes[lang][key] || mensajes['es'][key];
 
         if (traduccion) {
-            // Si es un input, traducimos el placeholder
             if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
                 el.placeholder = traduccion;
             } else {
@@ -66,18 +70,56 @@ function actualizarInterfaz() {
             }
         }
     });
-
-    // Actualiza el atributo lang del HTML para accesibilidad
     document.documentElement.lang = lang;
 }
 
-/**
- * Cambia el idioma y refresca la vista
- */
-function cambiarIdioma(nuevoLang) {
-    localStorage.setItem('idioma', nuevoLang);
-    actualizarInterfaz();
+// --- FUNCIONES DE BASE DE DATOS (Supabase) ---
+
+async function registrarEnNatsu(nombre, email) {
+    const { data, error } = await _supabase
+        .from('perfiles')
+        .insert([{ 
+            usuario: nombre, 
+            correo: email,
+            creado_el: NATSU_INFO.fechaCreacion 
+        }]);
+
+    if (error) {
+        console.error("Error:", error.message);
+        alert("¡Ups! Hubo un problemita rosa, intenta de nuevo 🌸");
+    } else {
+        const lang = getLang();
+        alert(mensajes[lang].registro_exito);
+        
+        // Limpiar campos
+        document.getElementById('nombre-usuario').value = "";
+        document.getElementById('correo-usuario').value = "";
+    }
 }
 
-// Ejecutar automáticamente cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', actualizarInterfaz);
+// --- CONFIGURACIÓN DE LA IA (Gemini) ---
+const IA_CONFIG = {
+    apiKey: "TU_LLAVE_DE_IA_AQUÍ", // <--- Pega aquí tu llave cuando la tengas
+    instrucciones: `Eres la IA de ${NATSU_INFO.nombre}. Fuiste creada por ${NATSU_INFO.creadora} el ${NATSU_INFO.fechaCreacion}. Responde siempre de forma linda y kawaii.`
+};
+
+// --- INICIALIZACIÓN ---
+
+document.addEventListener('DOMContentLoaded', () => {
+    actualizarInterfaz();
+
+    // Escuchar el botón de registro
+    const btnRegistrar = document.getElementById('btn-registrar');
+    if (btnRegistrar) {
+        btnRegistrar.addEventListener('click', () => {
+            const nombre = document.getElementById('nombre-usuario').value;
+            const correo = document.getElementById('correo-usuario').value;
+            
+            if (nombre && correo) {
+                registrarEnNatsu(nombre, correo);
+            } else {
+                alert("🌸 Cielo, rellena todos los campos por favor.");
+            }
+        });
+    }
+});
