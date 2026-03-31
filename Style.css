@@ -1,29 +1,48 @@
-:root { --natsu-rosa: #fd6698; --natsu-fuente: 'Segoe UI', sans-serif; }
+:root { --natsu-rosa: #fd6698; --natsu-celeste: #a2d2ff; --natsu-fuente: 'Segoe UI', sans-serif; }
+
 body { margin: 0; font-family: var(--natsu-fuente); background: #fff5f7; overflow: hidden; }
-.hidden { display: none !important; }
+.hidden { display: none; }
 
-/* Pantallas */
+/* LOGIN */
 .login-screen { height: 100vh; display: flex; align-items: center; justify-content: center; background: white; }
-.login-card { text-align: center; width: 85%; padding: 30px; border-radius: 35px; border: 3px solid var(--natsu-rosa); }
-.login-card input, select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 20px; border: 1px solid #ffb6c1; }
-.btn-entrar { background: var(--natsu-rosa); color: white; border: none; padding: 15px; width: 100%; border-radius: 25px; font-weight: bold; }
+.login-card { text-align: center; width: 85%; max-width: 380px; padding: 30px; border-radius: 40px; border: 3px solid var(--natsu-rosa); }
+.login-card input, select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 20px; border: 1px solid #ffb6c1; font-size: 16px; }
+.btn-entrar { background: var(--natsu-rosa); color: white; border: none; padding: 18px; width: 100%; border-radius: 25px; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(253,102,152,0.3); }
 
-/* Nav y Header */
-.app-header { background: white; padding: 10px; border-bottom: 1px solid #eee; text-align: center; }
-.app-header input { width: 90%; padding: 10px; border-radius: 20px; border: 1px solid #f0f0f0; background: #f9f9f9; }
-.nav-bar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; height: 75px; border-top: 1px solid #eee; }
-.nav-item { flex: 1; text-align: center; padding-top: 12px; color: var(--natsu-rosa); font-size: 10px; font-weight: bold; }
+/* HEADER Y NAV */
+.app-header { background: white; padding: 10px; display: flex; justify-content: center; border-bottom: 1px solid #eee; }
+#main_search { width: 90%; padding: 10px; border-radius: 20px; border: 1px solid #eee; background: #f9f9f9; }
+.nav-bar { position: fixed; bottom: 0; width: 100%; background: white; display: flex; height: 75px; border-top: 1px solid #eee; z-index: 1000; }
+.nav-item { flex: 1; text-align: center; padding-top: 12px; color: var(--natsu-rosa); font-size: 10px; font-weight: bold; cursor: pointer; }
 .nav-item img { width: 28px; display: block; margin: 0 auto 4px; }
 
-/* Clips y Likes */
-.clips-view { height: calc(100vh - 120px); background: black; overflow-y: scroll; scroll-snap-type: y mandatory; }
+/* CLIPS (TIKTOK STYLE) */
+.clips-view { height: calc(100vh - 120px); background: #000; overflow-y: scroll; scroll-snap-type: y mandatory; }
 .clip-card { height: 100%; scroll-snap-align: start; position: relative; }
-.clip-sidebar { position: absolute; right: 15px; bottom: 100px; display: flex; flex-direction: column; gap: 20px; }
-.heart-float { position: absolute; font-size: 50px; pointer-events: none; animation: fly 1s forwards; z-index: 2000; }
-@keyframes fly { 0% { transform: translateY(0); opacity: 1; } 100% { transform: translateY(-250px); opacity: 0; } }
+.clip-sidebar { position: absolute; right: 15px; bottom: 80px; display: flex; flex-direction: column; gap: 20px; align-items: center; }
+.clip-icon-group { text-align: center; color: white; font-size: 12px; }
+.clip-icon-group img { width: 38px; filter: drop-shadow(0 2px 5px rgba(0,0,0,0.8)); }
 
-/* Feed y Borrado */
-.post-card { background: white; margin: 15px; border-radius: 25px; padding: 15px; position: relative; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-.btn-del { position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 20px; cursor: pointer; }
-.frame-box { position: relative; width: 100%; height: 350px; border-radius: 20px; overflow: hidden; background: #ffeef2; }
+/* LIKES EN VIVO */
+.heart-float { position: absolute; font-size: 50px; pointer-events: none; animation: flyUp 1.2s ease-out forwards; z-index: 2000; }
+@keyframes flyUp { 0% { transform: translateY(0) scale(1); opacity: 1; } 100% { transform: translateY(-300px) scale(1.8); opacity: 0; } }
+
+/* FEED (FACEBOOK STYLE) */
+.post-card { background: white; margin: 15px; border-radius: 30px; padding: 15px; position: relative; box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+.frame-box { position: relative; width: 100%; height: 380px; border-radius: 20px; overflow: hidden; background: #ffeef2; }
 .frame-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
+.post-footer { display: flex; justify-content: space-around; padding: 15px 0 5px; border-top: 1px solid #f9f9f9; margin-top: 10px; }
+.btn-del { position: absolute; top: 15px; right: 20px; background: none; border: none; font-size: 20px; cursor: pointer; }
+
+/* CHATS (WHATSAPP STYLE) */
+.chat-row { display: flex; align-items: center; padding: 15px; background: white; border-bottom: 1px solid #f5f5f5; }
+.chat-avatar { width: 55px; height: 55px; border-radius: 50%; margin-right: 15px; border: 2px solid var(--natsu-rosa); }
+.chat-info { flex: 1; }
+.chat-actions { display: flex; gap: 15px; }
+
+/* PERFIL */
+.profile-header { text-align: center; background: white; padding-bottom: 30px; }
+.profile-cover { height: 140px; background: linear-gradient(45deg, var(--natsu-rosa), var(--natsu-celeste)); }
+.profile-img { width: 120px; height: 120px; border-radius: 50%; border: 5px solid white; margin-top: -60px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+.stories-highlight { display: flex; gap: 15px; padding: 20px; overflow-x: auto; justify-content: center; }
+.highlight-circle { width: 65px; height: 65px; border-radius: 50%; border: 2px solid var(--natsu-rosa); padding: 3px; flex-shrink: 0; }
