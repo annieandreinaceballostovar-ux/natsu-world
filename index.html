@@ -6,102 +6,79 @@
     <title>Natsu World 🎀</title>
     <link rel="stylesheet" href="Style.css">
     <style>
-        body { margin: 0; font-family: 'Segoe UI', sans-serif; background-color: #fff5f7; }
+        :root { --rosa-natsu: #fd6698; --fondo-pastel: #fff5f7; }
+        body { margin: 0; background-color: var(--fondo-pastel); font-family: 'Segoe UI', sans-serif; }
         
-        /* Encabezado Fijo */
-        header { 
-            display: flex; justify-content: space-between; align-items: center; 
-            padding: 10px 15px; background: white; position: fixed; top: 0; 
-            width: 100%; z-index: 100; box-sizing: border-box; border-bottom: 2px solid #ffeef2;
-        }
-        .logo-app { display: flex; align-items: center; gap: 8px; color: #fd6698; font-weight: bold; }
+        /* Contenedor Principal estilo Feed */
+        .feed-container { padding: 15px; margin-top: 60px; display: flex; flex-direction: column; gap: 20px; }
 
-        /* Panel de Publicación estilo Facebook */
-        main { margin-top: 70px; padding: 15px; padding-bottom: 80px; }
-        
-        .post-card { 
-            background: white; border-radius: 20px; padding: 15px; 
-            position: relative; box-shadow: 0 5px 15px rgba(253, 102, 152, 0.1);
-            margin-bottom: 20px; border: 1px solid #ffeef2;
+        /* La Card de Publicación */
+        .natsu-post { 
+            background: white; border-radius: 25px; padding: 15px; 
+            box-shadow: 0 10px 20px rgba(253, 102, 152, 0.05);
+            border: 1px solid #ffeef2; position: relative;
         }
 
-        /* El MARCO sobre la foto de la publicación */
-        .contenedor-foto { position: relative; width: 100%; margin: 10px 0; }
-        .foto-publicada { width: 100%; border-radius: 15px; display: block; }
-        .marco-decorativo { 
-            position: absolute; top: -5px; left: -5px; width: calc(100% + 10px); 
-            height: calc(100% + 10px); pointer-events: none; object-fit: fill;
+        /* Foto con el MARCO perfecto */
+        .foto-wrapper { position: relative; width: 100%; border-radius: 15px; overflow: hidden; margin-top: 10px; }
+        .foto-principal { width: 100%; display: block; border-radius: 15px; }
+        .marco-overlay { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+            pointer-events: none; object-fit: stretch;
         }
 
-        /* Decoraciones flotantes */
-        .deco-lazo { position: absolute; top: -10px; left: -10px; width: 40px; }
-        .deco-oso { position: absolute; top: -15px; right: -5px; width: 45px; }
-        .deco-pastel { position: absolute; bottom: 45px; right: 5px; width: 40px; }
+        /* Decoraciones en las esquinas */
+        .deco-lazo { position: absolute; top: -10px; left: -10px; width: 45px; z-index: 10; }
+        .deco-pastel { position: absolute; bottom: 60px; right: 5px; width: 35px; }
 
-        /* Botones de interacción (Like/Comentario) */
-        .acciones-bar { 
-            display: flex; gap: 20px; padding-top: 10px; border-top: 1px solid #f9f9f9; 
-            align-items: center; 
-        }
-        .btn-interact { width: 28px; cursor: pointer; transition: 0.2s; }
-        .btn-interact:active { transform: scale(1.2); }
+        /* Botones de Interacción */
+        .footer-post { display: flex; gap: 15px; padding: 12px 5px 0; align-items: center; }
+        .icon-action { width: 28px; transition: transform 0.2s; cursor: pointer; }
+        .icon-action:active { transform: scale(1.3); }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="logo-app">
-            <img src="osito-mini.png" width="25">
-            <span>Natsu World</span>
+    <header style="position: fixed; top: 0; width: 100%; background: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; z-index: 100; box-sizing: border-box;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <img src="perfil.png" style="width: 35px; height: 35px; border-radius: 50%;">
+            <span style="color: var(--rosa-natsu); font-weight: bold;">Natsu World</span>
         </div>
-        <div style="display: flex; gap: 12px;">
-            <img src="icon-video.png" width="22">
-            <img id="btn-sonido" src="sonido_on.png" width="22" style="cursor:pointer;">
-        </div>
+        <img id="sonido-trigger" src="sonido_on.png" style="width: 25px; cursor: pointer;">
     </header>
 
-    <main>
-        <div class="post-card">
+    <div class="feed-container">
+        <div class="natsu-post">
             <img src="lazo.png" class="deco-lazo">
-            <img src="oso.png" class="deco-oso">
-
-            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-                <img src="perfil.png" style="width: 40px; height: 40px; border-radius: 50%;">
-                <div>
-                    <strong style="font-size: 14px;">Annie Ceballos Tovar</strong><br>
-                    <span style="font-size: 11px; color: #aaa;">Hace un momento ✨</span>
-                </div>
+            
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
+                <strong style="font-size: 14px; color: #333;">Annie Ceballos</strong>
+                <img src="oso.png" style="width: 20px;">
             </div>
 
-            <div class="contenedor-foto">
-                <img src="fondo-default.jpg" class="foto-publicada">
-                <img src="marco.png" class="marco-decorativo"> </div>
+            <div class="foto-wrapper">
+                <img src="fondo-default.jpg" class="foto-principal">
+                <img src="marco.png" class="marco-overlay">
+            </div>
 
             <img src="pastel.png" class="deco-pastel">
 
-            <div class="acciones-bar">
-                <div style="display: flex; align-items: center; gap: 6px;">
-                    <img src="corazon.png" class="btn-interact" alt="Like">
-                    <span style="font-size: 12px; color: #fd6698; font-weight: bold;">Me gusta</span>
-                </div>
-                <div style="display: flex; align-items: center; gap: 6px;">
-                    <img src="comentario.png" class="btn-interact" alt="Comentar">
-                    <span style="font-size: 12px; color: #888;">Comentar</span>
-                </div>
+            <div class="footer-post">
+                <img src="corazon.png" class="icon-action" id="like-btn">
+                <img src="comentario.png" class="icon-action">
+                <img src="enviar.png" class="icon-action" style="margin-left: auto; width: 22px;">
             </div>
         </div>
-    </main>
+    </div>
 
-    <audio id="audio-notificacion" src="notificacion.mp4a" preload="auto"></audio>
+    <audio id="notif-audio" src="notificacion.mp4a)"></audio>
 
     <script>
-        // Función para el sonido al tocar el icono de la corneta
-        const btnSonido = document.getElementById('btn-sonido');
-        const audio = document.getElementById('audio-notificacion');
-        btnSonido.addEventListener('click', () => {
-            audio.play().catch(() => console.log("Toca la pantalla primero"));
+        const btn = document.getElementById('sonido-trigger');
+        const audio = document.getElementById('notif-audio');
+        btn.addEventListener('click', () => {
+            audio.play().catch(() => alert("Toca primero cualquier parte de la pantalla"));
         });
     </script>
-    <script src="js.js"></script>
 </body>
 </html>
